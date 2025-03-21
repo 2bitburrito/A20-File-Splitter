@@ -47,7 +47,14 @@ async function main() {
     console.log(`Created output directory: ${outputDir}`);
   }
 
-  const files = fs.readdirSync(inputDir);
+  const allFiles = fs.readdirSync(inputDir);
+  const files = allFiles.filter((file) => {
+    const extension = path.parse(file).ext;
+    if (file !== ".gitignore" && extension === ".wav") {
+      return file;
+    }
+  });
+
   // Log all the files:
   console.log("==================");
   console.log(`All files found:`);
